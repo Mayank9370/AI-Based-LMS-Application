@@ -20,7 +20,12 @@ export const createCourse = async (req,res) => {
         return res.status(201).json(course)
     } catch (error) {
          return res.status(500).json({message:`Failed to create course ${error}`})
+<<<<<<< HEAD
     }   
+=======
+    }
+    
+>>>>>>> 6810f2a8769313b16b3f66d5816fef22a2258970
 }
 
 export const getPublishedCourses = async (req,res) => {
@@ -75,6 +80,10 @@ export const editCourse = async (req,res) => {
     }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6810f2a8769313b16b3f66d5816fef22a2258970
 export const getCourseById = async (req,res) => {
     try {
         const {courseId} = req.params
@@ -105,7 +114,14 @@ export const removeCourse = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 //create lecture
+=======
+
+
+//create lecture
+
+>>>>>>> 6810f2a8769313b16b3f66d5816fef22a2258970
 export const createLecture = async (req,res) => {
     try {
         const {lectureTitle}= req.body
@@ -127,6 +143,10 @@ export const createLecture = async (req,res) => {
     } catch (error) {
         return res.status(500).json({message:`Failed to Create Lecture ${error}`})
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 6810f2a8769313b16b3f66d5816fef22a2258970
 }
 
 export const getCourseLecture = async (req,res) => {
@@ -194,6 +214,11 @@ export const removeLecture = async (req,res) => {
 
 
 //get Creator data
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6810f2a8769313b16b3f66d5816fef22a2258970
 // controllers/userController.js
 
 export const getCreatorById = async (req, res) => {
@@ -211,4 +236,12 @@ export const getCreatorById = async (req, res) => {
     console.error("Error fetching user by ID:", error);
     res.status(500).json({ message: "get Creator error" });
   }
+<<<<<<< HEAD
 };
+=======
+};
+
+
+
+
+>>>>>>> 6810f2a8769313b16b3f66d5816fef22a2258970

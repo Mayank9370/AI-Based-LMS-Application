@@ -16,7 +16,11 @@ let app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
+<<<<<<< HEAD
     origin:process.env.FRONTEND_URL,
+=======
+    origin:"http://localhost:5173",
+>>>>>>> 6810f2a8769313b16b3f66d5816fef22a2258970
     credentials:true
 }))
 app.use("/api/auth", authRouter)
