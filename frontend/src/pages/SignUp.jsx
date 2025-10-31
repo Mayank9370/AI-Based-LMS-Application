@@ -1,0 +1,187 @@
+import React, { useState } from 'react'
+import google from '../assets/google2.png'
+import axios from 'axios'
+import { serverUrl } from '../App'
+import { MdOutlineRemoveRedEye, MdRemoveRedEye } from "react-icons/md"
+import { useNavigate } from 'react-router-dom'
+import { signInWithPopup } from 'firebase/auth'
+import { auth, provider } from '../../utils/Firebase'
+import { ClipLoader } from 'react-spinners'
+import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { setUserData } from '../redux/userSlice'
+
+function SignUp() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [role, setRole] = useState("student")
+  const [show, setShow] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const handleSignUp = async () => {
+    if (!name || !email || !password) {
+      toast.warn("Please fill in all fields")
+      return
+    }
+    setLoading(true)
+    try {
+      const result = await axios.post(
+        `${serverUrl}/api/auth/signup`,
+        { name, email, password, role },
+        { withCredentials: true }
+      )
+      dispatch(setUserData(result.data))
+      toast.success("Sign Up Successfully")
+      navigate("/")
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Signup failed")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const googleSignUp = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider)
+      const user = response.user
+      const result = await axios.post(
+        `${serverUrl}/api/auth/googlesignup`,
+        { name: user.displayName, email: user.email, role },
+        { withCredentials: true }
+      )
+      dispatch(setUserData(result.data))
+      toast.success("Sign Up Successfully")
+      navigate("/")
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Google signup failed")
+    }
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-semibold text-gray-800">Let’s Get Started</h1>
+          <p className="text-gray-500 text-sm">Create your account</p>
+        </div>
+
+        <form
+          className="flex flex-col gap-4"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          {/* Name */}
+          <div>
+            <label htmlFor="name" className="block font-medium text-gray-700">
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Your name"
+              className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black/70"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label htmlFor="email" className="block font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              id="email"
+              type="text"
+              placeholder="you@example.com"
+              className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black/70"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          {/* Password */}
+          <div className="relative">
+            <label htmlFor="password" className="block font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              id="password"
+              type={show ? "text" : "password"}
+              placeholder="********"
+              className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black/70 pr-10"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div
+              className="absolute right-3 bottom-2 text-gray-500 cursor-pointer"
+              onClick={() => setShow(!show)}
+            >
+              {show ? <MdRemoveRedEye size={20} /> : <MdOutlineRemoveRedEye size={20} />}
+            </div>
+          </div>
+
+          {/* Role Selection */}
+          <div className="flex justify-between mt-2">
+            {["student", "educator"].map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRole(r)}
+                className={`flex-1 py-2 mx-1 border rounded-2xl text-sm capitalize transition ${
+                  role === r
+                    ? "border-black bg-gray-100 font-semibold"
+                    : "border-gray-300 hover:bg-gray-50"
+                }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+
+          {/* Signup Button */}
+          <button
+            className="w-full py-2 mt-2 bg-blue-600 text-white rounded-md font-medium flex items-center justify-center"
+            onClick={handleSignUp}
+            disabled={loading}
+          >
+            {loading ? <ClipLoader size={24} color="white" /> : "Sign Up"}
+          </button>
+
+          {/* Divider */}
+          <div className="flex items-center my-2">
+            <div className="flex-1 h-px bg-gray-300"></div>
+            <span className="px-2 text-gray-500 text-sm">or continue with</span>
+            <div className="flex-1 h-px bg-gray-300"></div>
+          </div>
+
+          {/* Google Signup */}
+          <button
+            type="button"
+            onClick={googleSignUp}
+            className="w-full py-2 border border-gray-300 rounded-md flex items-center justify-center gap-2 hover:bg-gray-50"
+          >
+            <img src={google} alt="Google" className="w-5 h-5" />
+            <span className="text-gray-600 font-medium">Sign up with Google</span>
+          </button>
+
+          {/* Already have an account */}
+          <p className="text-center text-sm text-gray-600 mt-3">
+            Already have an account?{" "}
+            <span
+              className="text-blue-600 font-medium underline cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </span>
+          </p>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export default SignUp
