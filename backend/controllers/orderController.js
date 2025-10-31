@@ -30,11 +30,6 @@ export const createOrder = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 6810f2a8769313b16b3f66d5816fef22a2258970
 export const verifyPayment = async (req, res) => {
   try {
     
