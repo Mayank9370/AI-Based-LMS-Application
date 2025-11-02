@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { serverUrl } from '../App';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import img from "../assets/empty.jpg"
 import Card from "../components/Card.jsx"
@@ -27,7 +26,7 @@ function ViewCourse() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-
+  const serverUrl = import.meta.env.VITE_SERVERURL
 
 
 
@@ -268,8 +267,8 @@ function ViewCourse() {
                     }
                   }}
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-200 text-left ${lecture.isPreviewFree
-                      ? "hover:bg-gray-100 cursor-pointer border-gray-300"
-                      : "cursor-not-allowed opacity-60 border-gray-200"
+                    ? "hover:bg-gray-100 cursor-pointer border-gray-300"
+                    : "cursor-not-allowed opacity-60 border-gray-200"
                     } ${selectedLecture?.lectureTitle === lecture.lectureTitle
                       ? "bg-gray-100 border-gray-400"
                       : ""

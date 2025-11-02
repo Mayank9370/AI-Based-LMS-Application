@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { FaArrowLeft, FaEdit } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { serverUrl } from '../../App';
 import { ClipLoader } from 'react-spinners';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLectureData } from '../../redux/lectureSlice';
@@ -15,6 +14,7 @@ function CreateLecture() {
     const [loading,setLoading] = useState(false)
     const dispatch = useDispatch()
     const {lectureData} = useSelector(state=>state.lecture)
+    const serverUrl  = import.meta.env.VITE_SERVERURL
     
 
     const createLectureHandler = async () => {

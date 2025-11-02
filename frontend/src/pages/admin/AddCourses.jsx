@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import img from "../../assets/empty.jpg"
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate, useParams } from 'react-router-dom';
-import { serverUrl } from '../../App';
 import { MdEdit } from "react-icons/md";
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -28,6 +27,7 @@ function AddCourses() {
    let [loading,setLoading] = useState(false)
    const dispatch = useDispatch()
    const {courseData} = useSelector(state=>state.course)
+       const serverUrl  = import.meta.env.VITE_SERVERURL
 
 
 
