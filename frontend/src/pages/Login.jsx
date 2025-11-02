@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import google from '../assets/google2.png'
 import axios from 'axios'
-import { serverUrl } from '../App'
 import { MdOutlineRemoveRedEye, MdRemoveRedEye } from "react-icons/md";
 import { useNavigate } from 'react-router-dom'
 import { signInWithPopup } from 'firebase/auth'
@@ -18,7 +17,7 @@ function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+  const serverUrl = import.meta.env.VITE_SERVERURL
   const handleLogin = async () => {
     if (!email || !password) {
       toast.warn("Please fill in all fields")
