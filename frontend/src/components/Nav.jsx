@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { serverUrl } from '../App';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +13,7 @@ function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userData } = useSelector(state => state.user);
+      const serverUrl  = import.meta.env.VITE_SERVERURL
 
   const handleLogout = async () => {
     try {

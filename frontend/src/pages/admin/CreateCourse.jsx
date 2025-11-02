@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { serverUrl } from "../../App";
 import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 const CreateCourse = () => {
@@ -10,6 +9,7 @@ const CreateCourse = () => {
     let [loading,setLoading]=useState(false)
     const [title,setTitle] = useState("")
     const [category,setCategory] = useState("")
+        const serverUrl  = import.meta.env.VITE_SERVERURL
 
     const CreateCourseHandler = async () => {
         setLoading(true)

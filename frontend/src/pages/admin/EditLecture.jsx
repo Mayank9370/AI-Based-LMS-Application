@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { FaArrowLeft } from "react-icons/fa"
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { serverUrl } from '../../App'
 import { setLectureData } from '../../redux/lectureSlice'
 import { toast } from 'react-toastify'
 import { ClipLoader } from 'react-spinners'
@@ -17,6 +16,7 @@ function EditLecture() {
     const [videoUrl,setVideoUrl] = useState(null)
     const [lectureTitle,setLectureTitle] = useState(selectedLecture.lectureTitle)
     const [isPreviewFree,setIsPreviewFree] = useState(false)
+        const serverUrl  = import.meta.env.VITE_SERVERURL
 
     const formData = new FormData()
     formData.append("lectureTitle",lectureTitle)

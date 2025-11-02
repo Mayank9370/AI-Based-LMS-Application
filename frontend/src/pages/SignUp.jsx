@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import google from '../assets/google2.png'
 import axios from 'axios'
-import { serverUrl } from '../App'
 import { MdOutlineRemoveRedEye, MdRemoveRedEye } from "react-icons/md"
 import { useNavigate } from 'react-router-dom'
 import { signInWithPopup } from 'firebase/auth'
@@ -20,6 +19,7 @@ function SignUp() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const serverUrl = import.meta.env.VITE_SERVERURL
 
   const handleSignUp = async () => {
     if (!name || !email || !password) {
@@ -131,11 +131,10 @@ function SignUp() {
                 key={r}
                 type="button"
                 onClick={() => setRole(r)}
-                className={`flex-1 py-2 mx-1 border rounded-2xl text-sm capitalize transition ${
-                  role === r
+                className={`flex-1 py-2 mx-1 border rounded-2xl text-sm capitalize transition ${role === r
                     ? "border-black bg-gray-100 font-semibold"
                     : "border-gray-300 hover:bg-gray-50"
-                }`}
+                  }`}
               >
                 {r}
               </button>
